@@ -70,8 +70,7 @@
 ## 在conf.xml文件中注册userMapper.xml文件
 
 	<mappers>
-        <!-- 注册userMapper.xml文件， 
-        userMapper.xml位于me.gacl.mapping这个包下，所以resource写成me/gacl/mapping/userMapper.xml-->
+        <!-- 注册userMapper.xml文件-->
         <mapper resource="userMapper.xml"/>
     </mappers>
 
@@ -91,3 +90,37 @@
 
 	}
 
+## 简单的curd操作
+
+	@Test
+	public void update() {
+		String resource = "conf.xml";
+		InputStream is = MyTest.class.getClassLoader().getResourceAsStream(resource);
+		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
+		SqlSession session = sessionFactory.openSession();
+		String statement = "updateUser";
+		User user = new User(2,"刘国通");
+		session.update(statement, user);
+	}
+	
+	@Test
+	public void add() {
+		String resource = "conf.xml";
+		InputStream is = MyTest.class.getClassLoader().getResourceAsStream(resource);
+		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
+		SqlSession session = sessionFactory.openSession();
+		User user = new User(3,"二飞");
+		session.insert("addUser", user);	
+		session.commit();
+	}
+	
+	@Test
+	public void delete() {
+		String resource = "conf.xml";
+		InputStream is = MyTest.class.getClassLoader().getResourceAsStream(resource);
+		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
+		SqlSession session = sessionFactory.openSession();
+		session.delete("deleteUser", 3);
+		session.commit();
+		
+	}

@@ -18,4 +18,13 @@
         resultType="com.qys.entity.User">
         select * from user where id=#{id}
     </select>
+    <update id="updateUser" parameterType="com.qys.entity.User">
+    	update user set name=#{name} where id = #{id}
+    </update>
+    <insert id="addUser" parameterType="com.qys.entity.User">
+    	insert into user values(#{id}, #{name})
+    </insert>
+    <delete id="deleteUser" parameterType="int">
+    	delete from user where id = #{id}
+    </delete>
 </mapper>
