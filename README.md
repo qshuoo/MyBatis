@@ -74,3 +74,20 @@
         userMapper.xml位于me.gacl.mapping这个包下，所以resource写成me/gacl/mapping/userMapper.xml-->
         <mapper resource="userMapper.xml"/>
     </mappers>
+
+## 编写测试类测试
+
+	public void query() {
+		String resource = "conf.xml";
+		InputStream is = MyTest.class.getClassLoader().getResourceAsStream(resource);
+		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
+		// Reader reader = Resources.getResourceAsReader(resource);
+		// SqlSessionFactory sessionFactory = new
+		// SqlSessionFactoryBuilder().build(reader);
+		SqlSession session = sessionFactory.openSession();
+		String statement = "getUser";
+		User user = session.selectOne(statement, 1);
+		System.out.println(user);
+
+	}
+
