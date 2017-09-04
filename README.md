@@ -67,3 +67,10 @@
  	   </select>
 	</mapper>
 
+## 在conf.xml文件中注册userMapper.xml文件
+
+	<mappers>
+        <!-- 注册userMapper.xml文件， 
+        userMapper.xml位于me.gacl.mapping这个包下，所以resource写成me/gacl/mapping/userMapper.xml-->
+        <mapper resource="userMapper.xml"/>
+    </mappers>
