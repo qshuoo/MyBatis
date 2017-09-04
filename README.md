@@ -20,8 +20,8 @@
 	            <transactionManager type="JDBC" />
 	            <!-- 配置数据库连接信息 -->
 	            <dataSource type="POOLED">
-	                <property 	name="driver"value="com.mysql.jdbc.Driver"/>
-	                <property 	name="url"value="jdbc:mysql://localhost:3306/mybatis"/>
+	                <property name="driver"value="com.mysql.jdbc.Driver"/>
+	                <property name="url"value="jdbc:mysql://localhost:3306/mybatis"/>
 	                <property name="username" value="root" />
 	                <property name="password" value="XDP" />
 	            </dataSource>
@@ -30,26 +30,40 @@
 	</configuration>
 
 ## 根据表编写实体类
-`public class User {
-	private int id;
-	private String name;
-	public int getId() {
-		return id;
+	public class User {
+		private int id;
+		private String name;
+		public int getId() {
+			return id;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		@Override
+		public String toString() {
+			return "User [id=" + id + ", name=" + name + "]";
+		}
 	}
-	public String getName() {
-		return name;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + "]";
-	}
-}`
 
+## 定义表格sql映射文件userMapper.xml
 
+在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复使用parameterType属性指明查询时使用的参数类型，resultType属性指明查询返回的结果集类型resultType="com.qys.entity.User"就表示将查询结果封装成一个User类的对象
+
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="userMapper">
+    	<!-- 
+       	 根据id查询得到一个user对象
+    	 -->
+   	 <select id="getUser" parameterType="int" 
+    	    resultType="com.qys.entity.User">
+    	    select * from users where id=#{id}
+ 	   </select>
+	</mapper>
 
